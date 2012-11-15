@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event">
-        <attribute name="timeStamp" optional="YES" attributeType="Date"/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Cadet" syncable="YES">
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="squadron" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="belongsToSquad" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Squadron" inverseName="hasCadets" inverseEntity="Squadron" syncable="YES"/>
     </entity>
+    <entity name="Event">
+        <attribute name="timeStamp" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <userInfo/>
+    </entity>
+    <entity name="Firstie" parentEntity="Cadet" syncable="YES">
+        <attribute name="job" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="hasRank" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FirstieRanks" inverseName="rank" inverseEntity="FirstieRanks" syncable="YES"/>
+    </entity>
+    <entity name="FirstieRanks" syncable="YES">
+        <attribute name="rankList" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="rank" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Firstie" inverseName="hasRank" inverseEntity="Firstie" syncable="YES"/>
+    </entity>
+    <entity name="Squadron" syncable="YES">
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="hasCadets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cadet" inverseName="belongsToSquad" inverseEntity="Cadet" syncable="YES"/>
+        <fetchedProperty name="firstGroup" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Squadron"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="TwoDeg" parentEntity="Cadet" syncable="YES"/>
     <elements>
         <element name="Event" positionX="261" positionY="189" width="128" height="60"/>
+        <element name="Cadet" positionX="-20" positionY="27" width="128" height="103"/>
+        <element name="Firstie" positionX="-218" positionY="236" width="128" height="88"/>
+        <element name="FirstieRanks" positionX="-407" positionY="243" width="128" height="73"/>
+        <element name="TwoDeg" positionX="133" positionY="254" width="128" height="43"/>
+        <element name="Squadron" positionX="-270" positionY="-0" width="128" height="146"/>
     </elements>
 </model>
